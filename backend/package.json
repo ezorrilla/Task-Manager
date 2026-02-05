@@ -1,19 +1,23 @@
 {
   "name": "task-manager-backend",
   "version": "1.0.0",
-  "description": "API de gestion de tareas con Express, TypeScript y Firebase",
+  "description": "API de gestion de tareas con Express, TypeScript y Firebase Cloud Functions",
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/infraestructura/http/servidor.ts",
     "build": "tsc",
+    "build:watch": "tsc --watch",
     "start": "node dist/index.js",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "lint": "eslint src/**/*.ts",
-    "deploy": "npm run build && firebase deploy --only functions"
+    "lint": "eslint src/**/*.ts"
   },
   "engines": {
-    "node": ">=18"
+    "node": "18"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -29,11 +33,13 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.1",
     "@types/uuid": "^10.0.0",
+    "firebase-functions-test": "^3.4.0",
     "jest": "^29.7.0",
     "supertest": "^7.0.0",
     "@types/supertest": "^6.0.2",
     "ts-jest": "^29.2.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
-  }
+  },
+  "private": true
 }

@@ -7,9 +7,11 @@ export class ConfiguracionFirebase {
 
   static obtenerInstancia(): admin.app.App {
     if (!this.instancia) {
-      this.instancia = admin.initializeApp({
-        credential: admin.credential.applicationDefault(),
-      });
+      if (admin.apps.length === 0) {
+        this.instancia = admin.initializeApp();
+      } else {
+        this.instancia = admin.apps[0]!;
+      }
     }
 
     return this.instancia;

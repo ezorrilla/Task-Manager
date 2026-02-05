@@ -17,13 +17,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "@dominio/*": ["src/dominio/*"],
-      "@aplicacion/*": ["src/aplicacion/*"],
-      "@infraestructura/*": ["src/infraestructura/*"]
-    }
+    "moduleResolution": "node"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "tests"]

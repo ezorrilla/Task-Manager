@@ -1,6 +1,6 @@
 # Task Manager
 
-Aplicacion de gestion de tareas construida con Angular 19, Node/Express y Firebase.
+Aplicacion de gestion de tareas construida con Angular 19, Node/Express y Firebase Cloud Functions.
 
 ## Estructura del Proyecto
 
@@ -8,15 +8,17 @@ Aplicacion de gestion de tareas construida con Angular 19, Node/Express y Fireba
 task-manager/
 ├── frontend/          → Angular 19 (standalone, signals, new control flow)
 ├── backend/           → Node + Express + TypeScript (Cloud Functions)
+├── firebase.json      → Configuracion de Firebase
+├── firestore.rules    → Reglas de seguridad Firestore
 └── .github/workflows/ → CI/CD con GitHub Actions
 ```
 
 ## Tecnologias
 
 ### Backend
-- Node.js 18+ con Express 4.x
+- Node.js 18 con Express 4.x
 - TypeScript 5.x (strict mode)
-- Firebase Cloud Functions
+- **Firebase Cloud Functions**
 - Firebase Firestore
 - Arquitectura Hexagonal (DDD)
 - Jest para pruebas unitarias
@@ -28,56 +30,70 @@ task-manager/
 - SCSS con variables globales
 - Jasmine/Karma para pruebas
 
-## Arquitectura
-
-### Backend (Hexagonal / DDD)
-```
-src/
-├── dominio/          → Entidades, Value Objects, Puertos
-├── aplicacion/       → Casos de uso, DTOs, Mapeadores
-└── infraestructura/  → Firebase, HTTP (Express), Factories
-```
-
-### Frontend (Feature-based)
-```
-src/app/
-├── nucleo/           → Servicios core, interceptores, guards
-├── compartido/       → Componentes, pipes, directivas reutilizables
-└── funcionalidades/  → Modulos de autenticacion y tareas
-```
-
 ## Requisitos Previos
 
-- Node.js 18+
+- Node.js 18
 - Angular CLI 19
-- Firebase CLI
+- Firebase CLI (`npm install -g firebase-tools`)
 - Cuenta de Firebase con proyecto configurado
 
-## Instalacion
+## Configuracion Inicial de Firebase
 
-### Backend
+### 1. Login en Firebase
+```bash
+firebase login
+```
+
+### 2. Crear proyecto en Firebase Console
+- Ve a https://console.firebase.google.com
+- Crea un nuevo proyecto
+- Habilita Firestore Database (modo prueba para desarrollo)
+
+### 3. Configurar proyecto local
+```bash
+# En la raiz del proyecto, edita .firebaserc
+# Reemplaza "TU-PROYECTO-ID" con el ID de tu proyecto
+```
+
+## Desarrollo Local
+
+### Backend (Terminal 1)
 ```bash
 cd backend
 npm install
-cp .env.example .env
 npm run dev
 ```
+> API disponible en `http://localhost:3000`
 
-### Frontend
+### Frontend (Terminal 2)
 ```bash
 cd frontend
 npm install
 ng serve
 ```
+> App disponible en `http://localhost:4200`
 
-La aplicacion estara disponible en `http://localhost:4200`
+## Despliegue a Firebase
 
-## Configuracion de Firebase
+### Desplegar Cloud Functions (Backend)
+```bash
+cd backend
+npm run build
+firebase deploy --only functions
+```
 
-1. Crear proyecto en Firebase Console
-2. Habilitar Firestore
-3. Descargar credenciales de servicio
-4. Configurar variables de entorno en `backend/.env`
+### Desplegar Hosting (Frontend)
+```bash
+cd frontend
+ng build --configuration=production
+firebase deploy --only hosting
+```
+
+### Desplegar Todo
+```bash
+# Desde la raiz del proyecto
+firebase deploy
+```
 
 ## Endpoints del API
 
@@ -90,36 +106,44 @@ La aplicacion estara disponible en `http://localhost:4200`
 | PUT | /api/tareas/:id | Actualizar tarea |
 | DELETE | /api/tareas/:id | Eliminar tarea |
 
+**URL en produccion:** `https://us-central1-TU-PROYECTO.cloudfunctions.net/api`
+
 ## Scripts
 
 ### Backend
 | Script | Descripcion |
 |--------|-------------|
-| `npm run dev` | Servidor de desarrollo con hot reload |
-| `npm run build` | Compilar TypeScript a JavaScript |
-| `npm run test` | Ejecutar pruebas con cobertura |
-| `npm run deploy` | Desplegar a Firebase Functions |
+| `npm run dev` | Servidor local con hot reload |
+| `npm run build` | Compilar TypeScript |
+| `npm run serve` | Emulador de Cloud Functions |
+| `npm run deploy` | Desplegar a Cloud Functions |
+| `npm run logs` | Ver logs de Cloud Functions |
+| `npm run test` | Ejecutar pruebas |
 
 ### Frontend
 | Script | Descripcion |
 |--------|-------------|
 | `ng serve` | Servidor de desarrollo |
-| `ng build` | Build de produccion optimizado |
-| `ng test` | Ejecutar pruebas unitarias |
+| `ng build` | Build de produccion |
+| `ng test` | Ejecutar pruebas |
 
-## Pruebas
+## Arquitectura
 
-### Backend
-```bash
-cd backend
-npm test
+### Backend (Hexagonal / DDD)
 ```
-Cobertura: 97%
+src/
+├── dominio/          → Entidades, Value Objects, Puertos
+├── aplicacion/       → Casos de uso, DTOs, Mapeadores
+├── infraestructura/  → Firebase, HTTP (Express), Factories
+└── index.ts          → Export Cloud Function
+```
 
-### Frontend
-```bash
-cd frontend
-ng test
+### Frontend (Feature-based)
+```
+src/app/
+├── nucleo/           → Servicios core, interceptores, guards
+├── compartido/       → Componentes, pipes, directivas
+└── funcionalidades/  → Modulos de autenticacion y tareas
 ```
 
 ## Patrones y Buenas Practicas
