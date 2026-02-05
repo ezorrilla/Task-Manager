@@ -1,0 +1,45 @@
+@use 'variables' as v;
+
+@mixin responder-a($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: v.$breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: v.$breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: v.$breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: v.$breakpoint-xl) { @content; }
+  }
+}
+
+@mixin tarjeta {
+  background-color: v.$color-fondo-tarjeta;
+  border-radius: v.$radio-borde;
+  box-shadow: v.$sombra-suave;
+  padding: v.$espaciado-md;
+}
+
+@mixin flexbox-centro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexbox-entre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin truncar-texto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin enfoque-accesible {
+  &:focus-visible {
+    outline: 2px solid v.$color-primario;
+    outline-offset: 2px;
+  }
+}

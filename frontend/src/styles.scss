@@ -1,0 +1,83 @@
+@use '@angular/material' as mat;
+@use 'estilos/variables' as v;
+@use 'estilos/mixins' as m;
+@use 'estilos/tipografia' as t;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: t.$fuente-principal;
+  background-color: v.$color-fondo;
+  color: v.$color-texto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: v.$color-primario;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.contenedor-principal {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenido-pagina {
+  flex: 1;
+  padding: v.$espaciado-md;
+
+  @include m.responder-a(md) {
+    padding: v.$espaciado-lg;
+  }
+}
+
+.texto-error {
+  color: v.$color-error;
+  font-size: 0.875rem;
+  margin-top: v.$espaciado-xs;
+}
+
+.texto-exito {
+  color: v.$color-exito;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

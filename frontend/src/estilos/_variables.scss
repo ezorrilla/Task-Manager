@@ -1,0 +1,38 @@
+$color-primario: #3f51b5;
+$color-primario-claro: #757de8;
+$color-primario-oscuro: #002984;
+
+$color-acento: #ff4081;
+$color-acento-claro: #ff79b0;
+$color-acento-oscuro: #c60055;
+
+$color-exito: #4caf50;
+$color-advertencia: #ff9800;
+$color-error: #f44336;
+
+$color-fondo: #fafafa;
+$color-fondo-tarjeta: #ffffff;
+$color-texto: #212121;
+$color-texto-secundario: #757575;
+$color-borde: #e0e0e0;
+
+$sombra-suave: 0 2px 4px rgba(0, 0, 0, 0.1);
+$sombra-media: 0 4px 8px rgba(0, 0, 0, 0.12);
+$sombra-fuerte: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+$radio-borde: 8px;
+$radio-borde-pequeno: 4px;
+
+$espaciado-xs: 4px;
+$espaciado-sm: 8px;
+$espaciado-md: 16px;
+$espaciado-lg: 24px;
+$espaciado-xl: 32px;
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+$transicion-rapida: 150ms ease-in-out;
+$transicion-normal: 300ms ease-in-out;

@@ -1,0 +1,32 @@
+@use 'variables' as v;
+
+$fuente-principal: 'Roboto', sans-serif;
+
+@mixin titulo-principal {
+  font-family: $fuente-principal;
+  font-size: 2rem;
+  font-weight: 500;
+  color: v.$color-texto;
+  margin-bottom: v.$espaciado-md;
+}
+
+@mixin titulo-seccion {
+  font-family: $fuente-principal;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: v.$color-texto;
+  margin-bottom: v.$espaciado-sm;
+}
+
+@mixin texto-cuerpo {
+  font-family: $fuente-principal;
+  font-size: 1rem;
+  color: v.$color-texto;
+  line-height: 1.5;
+}
+
+@mixin texto-pequeno {
+  font-family: $fuente-principal;
+  font-size: 0.875rem;
+  color: v.$color-texto-secundario;
+}
