@@ -23,9 +23,9 @@ export class CrearUsuarioCasoUso {
 
     const nuevoUsuario = new Usuario({
       id: generarUuid(),
+      nombre: dto.nombre,
       correo,
       fechaCreacion: new Date(),
-      token: generarUuid(),
     });
 
     const usuarioCreado = await this.repositorioUsuarios.crear(nuevoUsuario);

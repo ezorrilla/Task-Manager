@@ -11,7 +11,7 @@ import { AutenticacionApiService } from '../../servicios/autenticacion-api.servi
 import { AutenticacionService } from '../../../../nucleo/servicios/autenticacion.service';
 import { NotificacionService } from '../../../../nucleo/servicios/notificacion.service';
 import { CargandoComponent } from '../../../../compartido/componentes/cargando/cargando.component';
-import { DialogoConfirmacionComponent, DatosDialogoConfirmacion } from '../../../../compartido/componentes/dialogo-confirmacion/dialogo-confirmacion.component';
+import { DialogoRegistroComponent, ResultadoDialogoRegistro } from '../../../../compartido/componentes/dialogo-registro/dialogo-registro.component';
 import { validarCorreo } from '../../../../compartido/validadores/correo.validador';
 
 @Component({
@@ -58,10 +58,10 @@ export class InicioSesionComponent {
 
         if (usuario) {
           this.autenticacion.iniciarSesion(usuario);
-          this.notificacion.exito('Bienvenido de nuevo');
+          this.notificacion.exito(`Bienvenido de nuevo, ${usuario.nombre}`);
           this.router.navigate(['/tareas']);
         } else {
-          this.mostrarDialogoCrearUsuario(correo);
+          this.mostrarDialogoRegistro(correo);
         }
       },
       error: () => {
@@ -70,35 +70,29 @@ export class InicioSesionComponent {
     });
   }
 
-  private mostrarDialogoCrearUsuario(correo: string): void {
-    const datos: DatosDialogoConfirmacion = {
-      titulo: 'Usuario no encontrado',
-      mensaje: `No existe una cuenta con el correo ${correo}. ¿Desea crear una cuenta nueva?`,
-      textoConfirmar: 'Crear cuenta',
-      textoCancelar: 'Cancelar'
-    };
-
-    const dialogoRef = this.dialog.open(DialogoConfirmacionComponent, {
+  private mostrarDialogoRegistro(correo: string): void {
+    const dialogoRef = this.dialog.open(DialogoRegistroComponent, {
       width: '400px',
-      data: datos,
-      ariaLabel: 'Confirmar creacion de usuario'
+      data: { correo },
+      ariaLabel: 'Registrar nuevo usuario',
+      disableClose: true
     });
 
-    dialogoRef.afterClosed().subscribe((confirmado) => {
-      if (confirmado) {
-        this.crearUsuario(correo);
+    dialogoRef.afterClosed().subscribe((resultado: ResultadoDialogoRegistro | null) => {
+      if (resultado) {
+        this.crearUsuario(resultado);
       }
     });
   }
 
-  private crearUsuario(correo: string): void {
+  private crearUsuario(datos: ResultadoDialogoRegistro): void {
     this.cargando.set(true);
 
-    this.autenticacionApi.crear({ correo }).subscribe({
+    this.autenticacionApi.crear({ nombre: datos.nombre, correo: datos.correo }).subscribe({
       next: (usuario) => {
         this.cargando.set(false);
         this.autenticacion.iniciarSesion(usuario);
-        this.notificacion.exito('Cuenta creada exitosamente');
+        this.notificacion.exito(`Bienvenido, ${usuario.nombre}`);
         this.router.navigate(['/tareas']);
       },
       error: () => {

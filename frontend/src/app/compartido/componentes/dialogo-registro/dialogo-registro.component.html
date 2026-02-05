@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Crear cuenta nueva</h2>
+
+<mat-dialog-content>
+  <p class="mensaje-registro">
+    No existe una cuenta con el correo <strong>{{ datos.correo }}</strong>.
+    Ingresa tu nombre para crear una cuenta nueva.
+  </p>
+
+  <form [formGroup]="formulario" (ngSubmit)="confirmar()">
+    <mat-form-field appearance="outline" class="campo-completo">
+      <mat-label>Nombre</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="nombre"
+        placeholder="Tu nombre"
+        autocomplete="name"
+        aria-describedby="error-nombre"
+        cdkFocusInitial />
+      <mat-icon matSuffix aria-hidden="true">person</mat-icon>
+
+      @if (tieneError('nombre', 'required')) {
+        <mat-error id="error-nombre">El nombre es obligatorio</mat-error>
+      }
+      @if (tieneError('nombre', 'minlength')) {
+        <mat-error id="error-nombre">El nombre debe tener al menos 2 caracteres</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    type="button"
+    (click)="cancelar()"
+    aria-label="Cancelar creacion de cuenta">
+    Cancelar
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="confirmar()"
+    aria-label="Confirmar creacion de cuenta">
+    Crear cuenta
+  </button>
+</mat-dialog-actions>

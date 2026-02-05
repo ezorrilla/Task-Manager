@@ -7,14 +7,48 @@ describe('Usuario', () => {
       const correo = new CorreoElectronico('test@ejemplo.com');
       const usuario = new Usuario({
         id: 'usuario-123',
+        nombre: 'Juan Perez',
         correo,
         fechaCreacion: new Date('2024-01-01'),
-        token: 'token-abc-123',
       });
 
       expect(usuario.id).toBe('usuario-123');
+      expect(usuario.nombre).toBe('Juan Perez');
       expect(usuario.correo).toBe(correo);
-      expect(usuario.token).toBe('token-abc-123');
+    });
+
+    it('deberia lanzar error si el nombre es muy corto', () => {
+      const correo = new CorreoElectronico('test@ejemplo.com');
+
+      expect(() => new Usuario({
+        id: 'usuario-123',
+        nombre: 'J',
+        correo,
+        fechaCreacion: new Date(),
+      })).toThrow('El nombre debe tener al menos 2 caracteres');
+    });
+
+    it('deberia lanzar error si el nombre esta vacio', () => {
+      const correo = new CorreoElectronico('test@ejemplo.com');
+
+      expect(() => new Usuario({
+        id: 'usuario-123',
+        nombre: '',
+        correo,
+        fechaCreacion: new Date(),
+      })).toThrow('El nombre debe tener al menos 2 caracteres');
+    });
+
+    it('deberia recortar espacios del nombre', () => {
+      const correo = new CorreoElectronico('test@ejemplo.com');
+      const usuario = new Usuario({
+        id: 'usuario-123',
+        nombre: '  Juan Perez  ',
+        correo,
+        fechaCreacion: new Date(),
+      });
+
+      expect(usuario.nombre).toBe('Juan Perez');
     });
   });
 
@@ -23,9 +57,9 @@ describe('Usuario', () => {
       const correo = new CorreoElectronico('test@ejemplo.com');
       const usuario = new Usuario({
         id: 'usuario-123',
+        nombre: 'Juan Perez',
         correo,
         fechaCreacion: new Date(),
-        token: 'token-abc',
       });
 
       expect(usuario.obtenerCorreoTexto()).toBe('test@ejemplo.com');

@@ -37,7 +37,7 @@ export class ListaTareasComponent implements OnInit {
   tareas = signal<Tarea[]>([]);
   cargando = signal(true);
 
-  correoUsuario = this.autenticacion.correoUsuario;
+  nombreUsuario = this.autenticacion.nombreUsuario;
 
   ngOnInit(): void {
     this.cargarTareas();

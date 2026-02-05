@@ -26,10 +26,11 @@
     flex: 1;
   }
 
-  .correo-usuario {
+  .nombre-usuario {
     font-size: 0.875rem;
     margin-right: v.$espaciado-md;
     display: none;
+    font-weight: 500;
 
     @include m.responder-a(sm) {
       display: inline;

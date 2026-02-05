@@ -22,12 +22,13 @@ export class FirestoreTareasRepositorio implements RepositorioTareasPuerto {
   async obtenerPorUsuario(usuarioId: string): Promise<Tarea[]> {
     const snapshot = await this.coleccion
       .where('usuarioId', '==', usuarioId)
-      .orderBy('fechaCreacion', 'desc')
       .get();
 
-    return snapshot.docs.map((doc) =>
+    const tareas = snapshot.docs.map((doc) =>
       this.mapearAEntidad(doc.data() as TareaFirestore)
     );
+
+    return tareas.sort((a, b) => b.fechaCreacion.getTime() - a.fechaCreacion.getTime());
   }
 
   async obtenerPorId(id: string, usuarioId: string): Promise<Tarea | null> {

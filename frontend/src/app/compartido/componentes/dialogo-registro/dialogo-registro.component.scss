@@ -1,0 +1,20 @@
+@use '../../../../estilos/variables' as v;
+
+.mensaje-registro {
+  color: v.$color-texto-secundario;
+  line-height: 1.5;
+  margin-bottom: v.$espaciado-md;
+
+  strong {
+    color: v.$color-texto;
+  }
+}
+
+.campo-completo {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  gap: v.$espaciado-sm;
+  padding-top: v.$espaciado-md;
+}

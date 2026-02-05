@@ -9,7 +9,7 @@ describe('CrearUsuarioCasoUso', () => {
   beforeEach(() => {
     mockRepositorio = {
       buscarPorCorreo: jest.fn(),
-      buscarPorToken: jest.fn(),
+      buscarPorId: jest.fn(),
       crear: jest.fn(),
     };
     casoUso = new CrearUsuarioCasoUso(mockRepositorio);
@@ -19,9 +19,10 @@ describe('CrearUsuarioCasoUso', () => {
     mockRepositorio.buscarPorCorreo.mockResolvedValue(null);
     mockRepositorio.crear.mockImplementation(async (usuario: Usuario) => usuario);
 
-    const resultado = await casoUso.ejecutar({ correo: 'nuevo@ejemplo.com' });
+    const resultado = await casoUso.ejecutar({ nombre: 'Juan Perez', correo: 'nuevo@ejemplo.com' });
 
     expect(resultado.correo).toBe('nuevo@ejemplo.com');
+    expect(resultado.nombre).toBe('Juan Perez');
     expect(resultado.token).toBeDefined();
     expect(mockRepositorio.crear).toHaveBeenCalledTimes(1);
   });
@@ -34,13 +35,19 @@ describe('CrearUsuarioCasoUso', () => {
     mockRepositorio.buscarPorCorreo.mockResolvedValue(usuarioExistente);
 
     await expect(
-      casoUso.ejecutar({ correo: 'existente@ejemplo.com' })
+      casoUso.ejecutar({ nombre: 'Juan Perez', correo: 'existente@ejemplo.com' })
     ).rejects.toThrow('El usuario ya existe con este correo');
   });
 
   it('deberia lanzar error para correo invalido', async () => {
     await expect(
-      casoUso.ejecutar({ correo: 'correo-invalido' })
+      casoUso.ejecutar({ nombre: 'Juan Perez', correo: 'correo-invalido' })
     ).rejects.toThrow('Correo electronico invalido');
+  });
+
+  it('deberia lanzar error para nombre muy corto', async () => {
+    await expect(
+      casoUso.ejecutar({ nombre: 'J', correo: 'valido@ejemplo.com' })
+    ).rejects.toThrow('El nombre debe tener al menos 2 caracteres');
   });
 });

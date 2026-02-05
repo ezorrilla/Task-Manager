@@ -1,41 +1,47 @@
 import { Request, Response, NextFunction } from 'express';
-import { ConfiguracionFirebase } from '../../firebase/configuracion-firebase';
+import { JwtServicio } from '../../servicios/jwt.servicio';
 
 export interface RequestAutenticado extends Request {
   usuarioId?: string;
+  correoUsuario?: string;
 }
 
-export async function autenticacionMiddleware(
+export function autenticacionMiddleware(
   req: RequestAutenticado,
   res: Response,
   next: NextFunction
-): Promise<void> {
+): void {
   const cabecera = req.headers.authorization;
 
   if (!cabecera || !cabecera.startsWith('Bearer ')) {
-    res.status(401).json({ error: 'Token de autenticacion requerido' });
+    res.status(401).json({
+      error: 'No autorizado',
+      mensaje: 'Token de autenticacion requerido'
+    });
     return;
   }
 
   const token = cabecera.split(' ')[1];
 
   if (!token) {
-    res.status(401).json({ error: 'Token invalido' });
+    res.status(401).json({
+      error: 'No autorizado',
+      mensaje: 'Token invalido'
+    });
     return;
   }
 
-  const firestore = ConfiguracionFirebase.obtenerFirestore();
-  const snapshot = await firestore
-    .collection('usuarios')
-    .where('token', '==', token)
-    .limit(1)
-    .get();
+  const payload = JwtServicio.verificarToken(token);
 
-  if (snapshot.empty) {
-    res.status(401).json({ error: 'Token no autorizado' });
+  if (!payload) {
+    res.status(401).json({
+      error: 'No autorizado',
+      mensaje: 'Token expirado o invalido'
+    });
     return;
   }
 
-  req.usuarioId = snapshot.docs[0].data().id;
+  req.usuarioId = payload.usuarioId;
+  req.correoUsuario = payload.correo;
   next();
 }

@@ -5,6 +5,7 @@ type ReglasValidacion = {
     requerido?: boolean;
     tipo?: string;
     longitudMaxima?: number;
+    longitudMinima?: number;
   };
 };
 
@@ -27,6 +28,10 @@ export function validarCuerpo(reglas: ReglasValidacion) {
 
         if (regla.longitudMaxima && typeof valor === 'string' && valor.length > regla.longitudMaxima) {
           errores.push(`El campo '${campo}' no puede exceder ${regla.longitudMaxima} caracteres`);
+        }
+
+        if (regla.longitudMinima && typeof valor === 'string' && valor.trim().length < regla.longitudMinima) {
+          errores.push(`El campo '${campo}' debe tener al menos ${regla.longitudMinima} caracteres`);
         }
       }
     }

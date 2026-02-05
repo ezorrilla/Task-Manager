@@ -10,6 +10,7 @@ export class AutenticacionService {
 
   readonly usuario = this.usuarioActual.asReadonly();
   readonly estaAutenticado = computed(() => this.usuarioActual() !== null);
+  readonly nombreUsuario = computed(() => this.usuarioActual()?.nombre ?? '');
   readonly correoUsuario = computed(() => this.usuarioActual()?.correo ?? '');
 
   constructor(private almacenamiento: AlmacenamientoService) {

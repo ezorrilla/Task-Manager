@@ -12,6 +12,7 @@ enrutadorUsuarios.get(
 enrutadorUsuarios.post(
   '/',
   validarCuerpo({
+    nombre: { requerido: true, tipo: 'string', longitudMinima: 2 },
     correo: { requerido: true, tipo: 'string' },
   }),
   UsuariosControlador.crear
