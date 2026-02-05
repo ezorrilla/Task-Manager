@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+.angular/
+coverage/
+*.tgz
+.idea/
+.vscode/
+*.swp
+*.swo
