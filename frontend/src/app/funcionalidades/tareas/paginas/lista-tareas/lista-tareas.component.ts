@@ -7,9 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { TareasApiService } from '../../servicios/tareas-api.service';
 import { AutenticacionService } from '../../../../nucleo/servicios/autenticacion.service';
 import { NotificacionService } from '../../../../nucleo/servicios/notificacion.service';
-import { Tarea, CrearTareaDto } from '../../../../nucleo/modelos/tarea.modelo';
+import { Tarea, CrearTareaDto, ActualizarTareaDto } from '../../../../nucleo/modelos/tarea.modelo';
 import { FormularioTareaComponent } from '../../componentes/formulario-tarea/formulario-tarea.component';
 import { TarjetaTareaComponent } from '../../componentes/tarjeta-tarea/tarjeta-tarea.component';
+import { DialogoEditarTareaComponent } from '../../componentes/dialogo-editar-tarea/dialogo-editar-tarea.component';
 import { CargandoComponent } from '../../../../compartido/componentes/cargando/cargando.component';
 import { DialogoConfirmacionComponent, DatosDialogoConfirmacion } from '../../../../compartido/componentes/dialogo-confirmacion/dialogo-confirmacion.component';
 
@@ -77,7 +78,28 @@ export class ListaTareasComponent implements OnInit {
   }
 
   editarTarea(tarea: Tarea): void {
-    this.notificacion.info('Funcionalidad de edicion en desarrollo');
+    const dialogoRef = this.dialog.open(DialogoEditarTareaComponent, {
+      width: '500px',
+      data: tarea,
+      ariaLabel: 'Editar tarea'
+    });
+
+    dialogoRef.afterClosed().subscribe((resultado: ActualizarTareaDto | null) => {
+      if (resultado) {
+        this.actualizarTarea(tarea.id, resultado);
+      }
+    });
+  }
+
+  private actualizarTarea(id: string, dto: ActualizarTareaDto): void {
+    this.tareasApi.actualizar(id, dto).subscribe({
+      next: (tareaActualizada) => {
+        this.tareas.update(lista =>
+          lista.map(t => t.id === tareaActualizada.id ? tareaActualizada : t)
+        );
+        this.notificacion.exito('Tarea actualizada');
+      }
+    });
   }
 
   confirmarEliminacion(id: string): void {

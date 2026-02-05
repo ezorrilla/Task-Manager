@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Editar Tarea</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formulario" id="form-editar-tarea">
+    <mat-form-field appearance="outline" class="campo-completo">
+      <mat-label>Titulo</mat-label>
+      <input
+        matInput
+        formControlName="titulo"
+        maxlength="100"
+        aria-describedby="error-titulo-editar" />
+
+      @if (tieneError('titulo', 'required')) {
+        <mat-error id="error-titulo-editar">El titulo es obligatorio</mat-error>
+      }
+      @if (tieneError('titulo', 'maxlength')) {
+        <mat-error id="error-titulo-editar">Maximo 100 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="campo-completo">
+      <mat-label>Descripcion</mat-label>
+      <textarea
+        matInput
+        formControlName="descripcion"
+        rows="3"
+        aria-describedby="error-descripcion-editar">
+      </textarea>
+
+      @if (tieneError('descripcion', 'required')) {
+        <mat-error id="error-descripcion-editar">La descripcion es obligatoria</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    type="button"
+    (click)="cancelar()"
+    aria-label="Cancelar edicion">
+    Cancelar
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    form="form-editar-tarea"
+    (click)="guardar()"
+    aria-label="Guardar cambios">
+    Guardar
+  </button>
+</mat-dialog-actions>

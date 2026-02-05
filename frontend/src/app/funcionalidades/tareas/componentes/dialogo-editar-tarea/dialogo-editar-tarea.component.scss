@@ -1,0 +1,19 @@
+@use '../../../../../estilos/variables' as v;
+
+mat-dialog-content {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: v.$espaciado-sm;
+    min-width: 300px;
+  }
+}
+
+.campo-completo {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  gap: v.$espaciado-sm;
+  padding-top: v.$espaciado-md;
+}
