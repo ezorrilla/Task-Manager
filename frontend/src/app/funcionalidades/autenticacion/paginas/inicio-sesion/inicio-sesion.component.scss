@@ -1,0 +1,70 @@
+@use '../../../../../estilos/variables' as v;
+@use '../../../../../estilos/mixins' as m;
+
+.contenedor-inicio-sesion {
+  @include m.flexbox-centro;
+  min-height: 100vh;
+  padding: v.$espaciado-md;
+  background: linear-gradient(135deg, v.$color-primario-claro 0%, v.$color-primario 100%);
+}
+
+.tarjeta-login {
+  width: 100%;
+  max-width: 400px;
+  padding: v.$espaciado-lg;
+
+  mat-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: v.$espaciado-lg;
+
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: v.$espaciado-sm;
+      font-size: 1.75rem;
+      color: v.$color-primario;
+
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    mat-card-subtitle {
+      margin-top: v.$espaciado-sm;
+      font-size: 0.95rem;
+    }
+  }
+
+  mat-card-content {
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: v.$espaciado-md;
+    }
+  }
+}
+
+.campo-completo {
+  width: 100%;
+}
+
+.boton-ingresar {
+  width: 100%;
+  padding: v.$espaciado-sm 0;
+  font-size: 1rem;
+
+  mat-icon {
+    margin-right: v.$espaciado-xs;
+  }
+}
+
+@include m.responder-a(sm) {
+  .tarjeta-login {
+    padding: v.$espaciado-xl;
+  }
+}
