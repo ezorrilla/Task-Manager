@@ -1,0 +1,13 @@
+@use '../../../../estilos/variables' as v;
+
+mat-dialog-content {
+  p {
+    color: v.$color-texto-secundario;
+    line-height: 1.5;
+  }
+}
+
+mat-dialog-actions {
+  gap: v.$espaciado-sm;
+  padding-top: v.$espaciado-md;
+}

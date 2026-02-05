@@ -1,0 +1,6 @@
+<div class="contenedor-cargando" role="status" aria-live="polite">
+  <mat-spinner [diameter]="diametro()" aria-label="Cargando contenido"></mat-spinner>
+  @if (mensaje()) {
+    <p class="mensaje-cargando">{{ mensaje() }}</p>
+  }
+</div>

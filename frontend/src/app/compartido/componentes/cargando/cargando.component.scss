@@ -1,0 +1,15 @@
+@use '../../../../estilos/variables' as v;
+@use '../../../../estilos/mixins' as m;
+
+.contenedor-cargando {
+  @include m.flexbox-centro;
+  flex-direction: column;
+  gap: v.$espaciado-md;
+  padding: v.$espaciado-lg;
+}
+
+.mensaje-cargando {
+  color: v.$color-texto-secundario;
+  font-size: 0.875rem;
+  margin: 0;
+}
