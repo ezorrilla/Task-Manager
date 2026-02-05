@@ -1,0 +1,35 @@
+<mat-card class="tarjeta-tarea" [class.completada]="tarea().completada">
+  <div class="contenido-tarea">
+    <mat-checkbox
+      [checked]="tarea().completada"
+      (change)="cambiarEstado($event.checked)"
+      color="primary"
+      [attr.aria-label]="'Marcar tarea ' + tarea().titulo + ' como ' + (tarea().completada ? 'pendiente' : 'completada')">
+    </mat-checkbox>
+
+    <div class="informacion-tarea" [appResaltarCompletada]="tarea().completada">
+      <h3 class="titulo-tarea">{{ tarea().titulo }}</h3>
+      <p class="descripcion-tarea">{{ tarea().descripcion }}</p>
+      <span class="fecha-tarea">{{ tarea().fechaCreacion | fechaRelativa }}</span>
+    </div>
+
+    <div class="acciones-tarea">
+      <button
+        mat-icon-button
+        (click)="solicitarEdicion()"
+        matTooltip="Editar tarea"
+        aria-label="Editar tarea">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="solicitarEliminacion()"
+        matTooltip="Eliminar tarea"
+        aria-label="Eliminar tarea">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

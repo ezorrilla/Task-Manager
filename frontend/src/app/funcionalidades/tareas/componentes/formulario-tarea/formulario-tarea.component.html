@@ -1,0 +1,46 @@
+<form [formGroup]="formulario" (ngSubmit)="enviar()" class="formulario-tarea">
+  <div class="campos-formulario">
+    <mat-form-field appearance="outline" class="campo-titulo">
+      <mat-label>Titulo de la tarea</mat-label>
+      <input
+        matInput
+        formControlName="titulo"
+        placeholder="Ej: Revisar correos"
+        maxlength="100"
+        aria-describedby="error-titulo" />
+
+      @if (tieneError('titulo', 'required')) {
+        <mat-error id="error-titulo">El titulo es obligatorio</mat-error>
+      }
+      @if (tieneError('titulo', 'maxlength')) {
+        <mat-error id="error-titulo">Maximo 100 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="campo-descripcion">
+      <mat-label>Descripcion</mat-label>
+      <textarea
+        matInput
+        formControlName="descripcion"
+        placeholder="Describe la tarea..."
+        rows="2"
+        aria-describedby="error-descripcion">
+      </textarea>
+
+      @if (tieneError('descripcion', 'required')) {
+        <mat-error id="error-descripcion">La descripcion es obligatoria</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    class="boton-agregar"
+    [disabled]="enviando()"
+    aria-label="Agregar nueva tarea">
+    <mat-icon aria-hidden="true">add</mat-icon>
+    Agregar
+  </button>
+</form>

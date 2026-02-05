@@ -1,0 +1,94 @@
+@use '../../../../../estilos/variables' as v;
+@use '../../../../../estilos/mixins' as m;
+
+.pagina-tareas {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: v.$color-fondo;
+}
+
+.barra-navegacion {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  mat-icon {
+    margin-right: v.$espaciado-sm;
+  }
+
+  .titulo-app {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .espaciador {
+    flex: 1;
+  }
+
+  .correo-usuario {
+    font-size: 0.875rem;
+    margin-right: v.$espaciado-md;
+    display: none;
+
+    @include m.responder-a(sm) {
+      display: inline;
+    }
+  }
+}
+
+.contenido-principal {
+  flex: 1;
+  padding: v.$espaciado-md;
+
+  @include m.responder-a(md) {
+    padding: v.$espaciado-lg;
+  }
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.titulo-pagina {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: v.$color-texto;
+  margin: 0 0 v.$espaciado-lg 0;
+
+  @include m.responder-a(md) {
+    font-size: 2rem;
+  }
+}
+
+.sin-tareas {
+  @include m.flexbox-centro;
+  flex-direction: column;
+  padding: v.$espaciado-xl * 2;
+  text-align: center;
+  color: v.$color-texto-secundario;
+
+  mat-icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: v.$espaciado-md;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin: 0 0 v.$espaciado-sm 0;
+    color: v.$color-texto;
+  }
+
+  span {
+    font-size: 0.875rem;
+  }
+}
+
+.lista-tareas {
+  display: flex;
+  flex-direction: column;
+}

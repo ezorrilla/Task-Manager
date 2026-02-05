@@ -1,0 +1,62 @@
+@use '../../../../../estilos/variables' as v;
+@use '../../../../../estilos/mixins' as m;
+
+.tarjeta-tarea {
+  margin-bottom: v.$espaciado-sm;
+  transition: all v.$transicion-normal;
+
+  &:hover {
+    box-shadow: v.$sombra-media;
+  }
+
+  &.completada {
+    background-color: rgba(v.$color-exito, 0.05);
+    border-left: 3px solid v.$color-exito;
+  }
+}
+
+.contenido-tarea {
+  display: flex;
+  align-items: flex-start;
+  gap: v.$espaciado-md;
+  padding: v.$espaciado-md;
+
+  @include m.responder-a(md) {
+    align-items: center;
+  }
+}
+
+.informacion-tarea {
+  flex: 1;
+  min-width: 0;
+}
+
+.titulo-tarea {
+  margin: 0 0 v.$espaciado-xs 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: v.$color-texto;
+
+  @include m.truncar-texto;
+}
+
+.descripcion-tarea {
+  margin: 0 0 v.$espaciado-xs 0;
+  font-size: 0.875rem;
+  color: v.$color-texto-secundario;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fecha-tarea {
+  font-size: 0.75rem;
+  color: v.$color-texto-secundario;
+}
+
+.acciones-tarea {
+  display: flex;
+  gap: v.$espaciado-xs;
+  flex-shrink: 0;
+}

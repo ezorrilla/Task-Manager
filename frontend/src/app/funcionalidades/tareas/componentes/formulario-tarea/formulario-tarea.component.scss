@@ -1,0 +1,47 @@
+@use '../../../../../estilos/variables' as v;
+@use '../../../../../estilos/mixins' as m;
+
+.formulario-tarea {
+  @include m.tarjeta;
+  display: flex;
+  flex-direction: column;
+  gap: v.$espaciado-md;
+  margin-bottom: v.$espaciado-lg;
+
+  @include m.responder-a(md) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.campos-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: v.$espaciado-sm;
+  flex: 1;
+
+  @include m.responder-a(md) {
+    flex-direction: row;
+  }
+}
+
+.campo-titulo {
+  flex: 1;
+}
+
+.campo-descripcion {
+  flex: 2;
+
+  textarea {
+    resize: none;
+  }
+}
+
+.boton-agregar {
+  height: 56px;
+  min-width: 120px;
+
+  @include m.responder-a(md) {
+    align-self: flex-start;
+  }
+}
