@@ -1,19 +1,19 @@
 import { Routes } from '@angular/router';
-import { autenticacionGuard } from './nucleo/guardias/autenticacion.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./funcionalidades/autenticacion/autenticacion.routes')
-        .then(m => m.AUTENTICACION_ROUTES)
+      import('./features/auth/auth.routes')
+        .then(m => m.AUTH_ROUTES)
   },
   {
     path: 'tareas',
     loadChildren: () =>
-      import('./funcionalidades/tareas/tareas.routes')
-        .then(m => m.TAREAS_ROUTES),
-    canActivate: [autenticacionGuard]
+      import('./features/tasks/tasks.routes')
+        .then(m => m.TASKS_ROUTES),
+    canActivate: [authGuard]
   },
   {
     path: '**',

@@ -3,8 +3,8 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { routes } from './app.routes';
-import { tokenInterceptor } from './nucleo/interceptores/token.interceptor';
-import { errorHttpInterceptor } from './nucleo/interceptores/error-http.interceptor';
+import { tokenInterceptor } from './core/interceptors/token.interceptor';
+import { errorHttpInterceptor } from './core/interceptors/error-http.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

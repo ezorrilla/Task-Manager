@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(firebase:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nchore: configuracion inicial del monorepo\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nchore\\(backend\\): configuracion proyecto express con typescript\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git filter-branch:*)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch:*)",
+      "Bash(npx @angular/cli@19 new:*)",
+      "Bash(npx ng add @angular/material@19 --skip-confirmation --theme=custom --animations=enabled --typography=true)",
+      "Bash(npx ng add:*)",
+      "Bash(npx ng build)",
+      "Bash(npx ng test --no-watch --browsers=ChromeHeadless)",
+      "Bash(git mv:*)"
+    ]
+  }
+}

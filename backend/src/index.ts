@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
-import { crearServidor } from './infraestructura/http/servidor';
+import { createServer } from './infrastructure/http/server';
 
-const app = crearServidor();
+const app = createServer();
 
 export const api = functions.https.onRequest(app);
