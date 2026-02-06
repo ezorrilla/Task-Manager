@@ -14,7 +14,9 @@ export class FirebaseConfig {
         return this.instancia;
       }
 
-      const rutaCredenciales = path.join(process.cwd(), 'firebase-credentials.json');
+      const rutaCredenciales =
+        process.env['FIREBASE_CREDENTIALS_PATH'] ||
+        path.join(process.cwd(), 'firebase-credentials.json');
 
       if (fs.existsSync(rutaCredenciales)) {
         const credenciales = JSON.parse(fs.readFileSync(rutaCredenciales, 'utf8'));

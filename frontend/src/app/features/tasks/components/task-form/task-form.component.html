@@ -1,7 +1,7 @@
 <form [formGroup]="formulario" (ngSubmit)="enviar()" class="formulario-tarea">
   <div class="campos-formulario">
     <mat-form-field appearance="outline" class="campo-titulo">
-      <mat-label>Titulo de la tarea</mat-label>
+      <mat-label>Título de la tarea</mat-label>
       <input
         matInput
         formControlName="titulo"
@@ -10,15 +10,15 @@
         aria-describedby="error-titulo" />
 
       @if (tieneError('titulo', 'required')) {
-        <mat-error id="error-titulo">El titulo es obligatorio</mat-error>
+        <mat-error id="error-titulo">El título es obligatorio</mat-error>
       }
       @if (tieneError('titulo', 'maxlength')) {
-        <mat-error id="error-titulo">Maximo 100 caracteres</mat-error>
+        <mat-error id="error-titulo">Máximo 100 caracteres</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="campo-descripcion">
-      <mat-label>Descripcion</mat-label>
+      <mat-label>Descripción</mat-label>
       <textarea
         matInput
         formControlName="descripcion"
@@ -28,7 +28,7 @@
       </textarea>
 
       @if (tieneError('descripcion', 'required')) {
-        <mat-error id="error-descripcion">La descripcion es obligatoria</mat-error>
+        <mat-error id="error-descripcion">La descripción es obligatoria</mat-error>
       }
     </mat-form-field>
   </div>

@@ -1,24 +1,24 @@
-# Task Manager
+﻿# Task Manager
 
-Aplicacion de gestion de tareas construida con Angular 19, Node/Express y Firebase Cloud Functions.
+Aplicación de gestión de tareas construida con Angular 19, Node/Express y Firebase Cloud Functions.
 
 ## Estructura del Proyecto
 
 ```
 task-manager/
-├── frontend/          → Angular 19 (standalone, signals, new control flow)
-├── backend/           → Node + Express + TypeScript (Cloud Functions)
-├── firebase.json      → Configuracion de Firebase
-├── firestore.rules    → Reglas de seguridad Firestore
-└── .github/workflows/ → CI/CD con GitHub Actions
+- frontend/          -> Angular 19 (standalone, signals, new control flow)
+- backend/           -> Node + Express + TypeScript (Cloud Functions)
+- firebase.json      -> Configuración de Firebase
+- firestore.rules    -> Reglas de seguridad Firestore
+- .github/workflows/ -> GitHub Actions (CI/CD)
 ```
 
-## Tecnologias
+## Tecnologías
 
 ### Backend
-- Node.js 18 con Express 4.x
+- Node.js 18+ con Express 4.x
 - TypeScript 5.x (strict mode)
-- **Firebase Cloud Functions**
+- Firebase Cloud Functions
 - Firebase Firestore
 - Arquitectura Hexagonal (DDD)
 - Jest para pruebas unitarias
@@ -32,12 +32,12 @@ task-manager/
 
 ## Requisitos Previos
 
-- Node.js 18
+- Node.js 18+
 - Angular CLI 19
 - Firebase CLI (`npm install -g firebase-tools`)
 - Cuenta de Firebase con proyecto configurado
 
-## Configuracion Inicial de Firebase
+## Configuración Inicial de Firebase
 
 ### 1. Login en Firebase
 ```bash
@@ -45,15 +45,20 @@ firebase login
 ```
 
 ### 2. Crear proyecto en Firebase Console
-- Ve a https://console.firebase.google.com
-- Crea un nuevo proyecto
-- Habilita Firestore Database (modo prueba para desarrollo)
+- Crea un proyecto en Firebase Console
+- Habilita Firestore Database
 
 ### 3. Configurar proyecto local
 ```bash
-# En la raiz del proyecto, edita .firebaserc
-# Reemplaza "TU-PROYECTO-ID" con el ID de tu proyecto
+# En la raíz del proyecto, edita .firebaserc
+# Reemplaza el project id con el tuyo
 ```
+
+### 4. Credenciales del Backend (Local)
+Por defecto el backend busca `firebase-credentials.json` en el root de `backend`.
+También puedes usar una de estas variables:
+- `FIREBASE_CREDENTIALS_PATH` (ruta a un service account JSON)
+- `GOOGLE_APPLICATION_CREDENTIALS` (credenciales por defecto de Google)
 
 ## Desarrollo Local
 
@@ -63,7 +68,7 @@ cd backend
 npm install
 npm run dev
 ```
-> API disponible en `http://localhost:3000`
+API disponible en `http://localhost:3000`
 
 ### Frontend (Terminal 2)
 ```bash
@@ -71,7 +76,7 @@ cd frontend
 npm install
 ng serve
 ```
-> App disponible en `http://localhost:4200`
+App disponible en `http://localhost:4200`
 
 ## Despliegue a Firebase
 
@@ -84,34 +89,58 @@ firebase deploy --only functions
 
 ### Desplegar Hosting (Frontend)
 ```bash
-cd frontend
-ng build --configuration=production
+npm --prefix frontend run build
 firebase deploy --only hosting
 ```
 
 ### Desplegar Todo
 ```bash
-# Desde la raiz del proyecto
+# Desde la raíz del proyecto
 firebase deploy
 ```
 
+## CI/CD (GitHub Actions)
+
+### CI (Integración Continua)
+- Archivo: `.github/workflows/ci.yml`
+- Corre en `push` y `pull_request` a `main` y `develop`.
+- Ejecuta pruebas y builds de backend y frontend.
+
+### CD (Despliegue Continuo)
+- Archivo: `.github/workflows/deploy.yml`
+- Se ejecuta solo cuando el workflow `CI` termina con éxito en `main`.
+- Despliega Firebase Hosting, Functions y reglas.
+
+#### Credenciales para CD (Service Account JSON)
+El workflow no usa credenciales en el repo. Cada persona debe crear su propio secret en GitHub.
+
+1. Crea un Service Account en tu proyecto de Firebase/Google Cloud.
+2. Descarga el JSON y guárdalo como secret en tu repositorio:
+   - Nombre: `FIREBASE_CREDENTIALS_JSON`
+   - Valor: contenido completo del JSON
+3. Actualiza `.firebaserc` con tu `projectId`.
+
+El workflow crea el archivo de credenciales temporalmente y nunca se commitea.
+
 ## Endpoints del API
 
-| Metodo | Ruta | Descripcion |
+| Método | Ruta | Descripción |
 |--------|------|-------------|
 | GET | /api/usuarios/buscar?correo=x | Buscar usuario por correo |
-| POST | /api/usuarios | Crear nuevo usuario |
+| POST | /api/usuarios | Crear usuario |
 | GET | /api/tareas | Obtener tareas del usuario |
-| POST | /api/tareas | Crear nueva tarea |
+| POST | /api/tareas | Crear tarea |
 | PUT | /api/tareas/:id | Actualizar tarea |
 | DELETE | /api/tareas/:id | Eliminar tarea |
 
-**URL en produccion:** `https://us-central1-TU-PROYECTO.cloudfunctions.net/api`
+URL base en producción:
+- Hosting: `https://TU-PROYECTO.web.app`
+- API vía Hosting rewrite: `https://TU-PROYECTO.web.app/api`
 
 ## Scripts
 
 ### Backend
-| Script | Descripcion |
+| Script | Descripción |
 |--------|-------------|
 | `npm run dev` | Servidor local con hot reload |
 | `npm run build` | Compilar TypeScript |
@@ -121,10 +150,10 @@ firebase deploy
 | `npm run test` | Ejecutar pruebas |
 
 ### Frontend
-| Script | Descripcion |
+| Script | Descripción |
 |--------|-------------|
 | `ng serve` | Servidor de desarrollo |
-| `ng build` | Build de produccion |
+| `ng build` | Build de producción |
 | `ng test` | Ejecutar pruebas |
 
 ## Arquitectura
@@ -132,30 +161,30 @@ firebase deploy
 ### Backend (Hexagonal / DDD)
 ```
 src/
-├── dominio/          → Entidades, Value Objects, Puertos
-├── aplicacion/       → Casos de uso, DTOs, Mapeadores
-├── infraestructura/  → Firebase, HTTP (Express), Factories
-└── index.ts          → Export Cloud Function
+- domain/           -> Entidades, Value Objects, Puertos
+- application/      -> Casos de uso, DTOs, Mapeadores
+- infrastructure/   -> Firebase, HTTP (Express), Factories
+- index.ts          -> Export Cloud Function
 ```
 
 ### Frontend (Feature-based)
 ```
 src/app/
-├── nucleo/           → Servicios core, interceptores, guards
-├── compartido/       → Componentes, pipes, directivas
-└── funcionalidades/  → Modulos de autenticacion y tareas
+- core/             -> Servicios core, interceptores, guards
+- shared/           -> Componentes, pipes, directivas
+- features/         -> Autenticación y tareas
 ```
 
-## Patrones y Buenas Practicas
+## Patrones y Buenas Prácticas
 
 - SOLID principles
-- DDD en backend (entidades ricas, value objects)
-- Repository pattern con interfaces/puertos
-- Factory pattern para inyeccion de dependencias
+- DDD en backend
+- Repository pattern
+- Factory pattern para inyección de dependencias
 - Smart/Dumb components en frontend
 - Signals para estado reactivo
-- Lazy loading de modulos
-- trackBy en listas para optimizacion
+- Lazy loading
+- trackBy en listas para optimización
 - ARIA labels para accesibilidad
 
 ## Licencia
