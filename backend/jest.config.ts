@@ -7,7 +7,7 @@ const configuracion: Config = {
   testMatch: ['**/*.spec.ts', '**/*.test.ts'],
   moduleNameMapper: {
     '^@domain/(.*)$': '<rootDir>/src/domain/$1',
-    '^@aplication/(.*)$': '<rootDir>/src/aplication/$1',
+    '^@application/(.*)$': '<rootDir>/src/application/$1',
     '^@infrastructure/(.*)$': '<rootDir>/src/infrastructure/$1',
   },
   collectCoverageFrom: [
