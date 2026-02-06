@@ -3,7 +3,7 @@
 <mat-dialog-content>
   <form [formGroup]="formulario" id="form-editar-tarea">
     <mat-form-field appearance="outline" class="campo-completo">
-      <mat-label>Titulo</mat-label>
+      <mat-label>Título</mat-label>
       <input
         matInput
         formControlName="titulo"
@@ -11,15 +11,15 @@
         aria-describedby="error-titulo-editar" />
 
       @if (tieneError('titulo', 'required')) {
-        <mat-error id="error-titulo-editar">El titulo es obligatorio</mat-error>
+        <mat-error id="error-titulo-editar">El título es obligatorio</mat-error>
       }
       @if (tieneError('titulo', 'maxlength')) {
-        <mat-error id="error-titulo-editar">Maximo 100 caracteres</mat-error>
+        <mat-error id="error-titulo-editar">Máximo 100 caracteres</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="campo-completo">
-      <mat-label>Descripcion</mat-label>
+      <mat-label>Descripción</mat-label>
       <textarea
         matInput
         formControlName="descripcion"
@@ -28,7 +28,7 @@
       </textarea>
 
       @if (tieneError('descripcion', 'required')) {
-        <mat-error id="error-descripcion-editar">La descripcion es obligatoria</mat-error>
+        <mat-error id="error-descripcion-editar">La descripción es obligatoria</mat-error>
       }
     </mat-form-field>
   </form>

@@ -1,6 +1,6 @@
 ﻿# Task Manager
 
-Aplicacion de gestion de tareas construida con Angular 19, Node/Express y Firebase Cloud Functions.
+Aplicación de gestión de tareas construida con Angular 19, Node/Express y Firebase Cloud Functions.
 
 ## Estructura del Proyecto
 
@@ -8,12 +8,12 @@ Aplicacion de gestion de tareas construida con Angular 19, Node/Express y Fireba
 task-manager/
 - frontend/          -> Angular 19 (standalone, signals, new control flow)
 - backend/           -> Node + Express + TypeScript (Cloud Functions)
-- firebase.json      -> Configuracion de Firebase
+- firebase.json      -> Configuración de Firebase
 - firestore.rules    -> Reglas de seguridad Firestore
 - .github/workflows/ -> GitHub Actions (CI/CD)
 ```
 
-## Tecnologias
+## Tecnologías
 
 ### Backend
 - Node.js 18+ con Express 4.x
@@ -37,7 +37,7 @@ task-manager/
 - Firebase CLI (`npm install -g firebase-tools`)
 - Cuenta de Firebase con proyecto configurado
 
-## Configuracion Inicial de Firebase
+## Configuración Inicial de Firebase
 
 ### 1. Login en Firebase
 ```bash
@@ -50,13 +50,13 @@ firebase login
 
 ### 3. Configurar proyecto local
 ```bash
-# En la raiz del proyecto, edita .firebaserc
+# En la raíz del proyecto, edita .firebaserc
 # Reemplaza el project id con el tuyo
 ```
 
 ### 4. Credenciales del Backend (Local)
 Por defecto el backend busca `firebase-credentials.json` en el root de `backend`.
-Tambien puedes usar una de estas variables:
+También puedes usar una de estas variables:
 - `FIREBASE_CREDENTIALS_PATH` (ruta a un service account JSON)
 - `GOOGLE_APPLICATION_CREDENTIALS` (credenciales por defecto de Google)
 
@@ -95,20 +95,20 @@ firebase deploy --only hosting
 
 ### Desplegar Todo
 ```bash
-# Desde la raiz del proyecto
+# Desde la raíz del proyecto
 firebase deploy
 ```
 
 ## CI/CD (GitHub Actions)
 
-### CI (Integracion Continua)
+### CI (Integración Continua)
 - Archivo: `.github/workflows/ci.yml`
 - Corre en `push` y `pull_request` a `main` y `develop`.
 - Ejecuta pruebas y builds de backend y frontend.
 
 ### CD (Despliegue Continuo)
 - Archivo: `.github/workflows/deploy.yml`
-- Se ejecuta solo cuando el workflow `CI` termina con exito en `main`.
+- Se ejecuta solo cuando el workflow `CI` termina con éxito en `main`.
 - Despliega Firebase Hosting, Functions y reglas.
 
 #### Credenciales para CD (Service Account JSON)
@@ -124,7 +124,7 @@ El workflow crea el archivo de credenciales temporalmente y nunca se commitea.
 
 ## Endpoints del API
 
-| Metodo | Ruta | Descripcion |
+| Método | Ruta | Descripción |
 |--------|------|-------------|
 | GET | /api/usuarios/buscar?correo=x | Buscar usuario por correo |
 | POST | /api/usuarios | Crear usuario |
@@ -133,14 +133,14 @@ El workflow crea el archivo de credenciales temporalmente y nunca se commitea.
 | PUT | /api/tareas/:id | Actualizar tarea |
 | DELETE | /api/tareas/:id | Eliminar tarea |
 
-URL base en produccion:
+URL base en producción:
 - Hosting: `https://TU-PROYECTO.web.app`
-- API via Hosting rewrite: `https://TU-PROYECTO.web.app/api`
+- API vía Hosting rewrite: `https://TU-PROYECTO.web.app/api`
 
 ## Scripts
 
 ### Backend
-| Script | Descripcion |
+| Script | Descripción |
 |--------|-------------|
 | `npm run dev` | Servidor local con hot reload |
 | `npm run build` | Compilar TypeScript |
@@ -150,10 +150,10 @@ URL base en produccion:
 | `npm run test` | Ejecutar pruebas |
 
 ### Frontend
-| Script | Descripcion |
+| Script | Descripción |
 |--------|-------------|
 | `ng serve` | Servidor de desarrollo |
-| `ng build` | Build de produccion |
+| `ng build` | Build de producción |
 | `ng test` | Ejecutar pruebas |
 
 ## Arquitectura
@@ -172,19 +172,19 @@ src/
 src/app/
 - core/             -> Servicios core, interceptores, guards
 - shared/           -> Componentes, pipes, directivas
-- features/         -> Autenticacion y tareas
+- features/         -> Autenticación y tareas
 ```
 
-## Patrones y Buenas Practicas
+## Patrones y Buenas Prácticas
 
 - SOLID principles
 - DDD en backend
 - Repository pattern
-- Factory pattern para inyeccion de dependencias
+- Factory pattern para inyección de dependencias
 - Smart/Dumb components en frontend
 - Signals para estado reactivo
 - Lazy loading
-- trackBy en listas para optimizacion
+- trackBy en listas para optimización
 - ARIA labels para accesibilidad
 
 ## Licencia
