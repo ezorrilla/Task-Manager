@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = process.env['JWT_SECRET'] || 'task-manager-secret-key-change-in-production';
-const EXPIRACION = '7d';
+const EXPIRACION = '1d';
 
 export interface JwtPayload {
   usuarioId: string;

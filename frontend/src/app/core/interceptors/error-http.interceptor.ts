@@ -17,11 +17,11 @@ export const errorHttpInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 401) {
         autenticacion.cerrarSesion();
         router.navigate(['/']);
-        mensaje = 'Sesion expirada. Por favor, inicie sesion nuevamente';
+        mensaje = 'Sesión expirada. Por favor, inicie sesión nuevamente';
       } else if (error.status === 404) {
         mensaje = error.error?.error || 'Recurso no encontrado';
       } else if (error.status === 400) {
-        mensaje = error.error?.error || 'Datos invalidos';
+        mensaje = error.error?.error || 'Datos inválidos';
       } else if (error.status === 409) {
         mensaje = error.error?.error || 'El recurso ya existe';
       } else if (error.status === 0) {
