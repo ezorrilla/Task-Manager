@@ -9,6 +9,7 @@ describe('AuthService', () => {
 
   const usuarioMock: Usuario = {
     id: 'usuario-123',
+    nombre: 'Test Usuario',
     correo: 'test@ejemplo.com',
     fechaCreacion: '2024-01-01T00:00:00.000Z',
     token: 'token-abc-123'
