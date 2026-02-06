@@ -12,7 +12,7 @@
       <h3 class="titulo-tarea">{{ tarea().titulo }}</h3>
       <p class="descripcion-tarea">{{ tarea().descripcion }}</p>
       <span class="fecha-tarea"
-      [matTooltip]="tarea().fechaCreacion | date:'dd/MM/yyyy hh:mm:ss'">{{ tarea().fechaCreacion | relativeDate }}</span>
+      [matTooltip]="tarea().fechaCreacion | date:'dd/MM/yyyy hh:mm:ss a'">{{ tarea().fechaCreacion | relativeDate }}</span>
     </div>
 
     <div class="acciones-tarea">
