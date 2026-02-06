@@ -45,11 +45,11 @@ jobs:
 
       - name: Crear credenciales de Firebase
         run: |
-          if [ -z "${{ secrets.FIREBASE_CREDENTIALS_JSON }}" ]; then
-            echo "FIREBASE_CREDENTIALS_JSON no esta definido"
+          if [ -z "${{ secrets.FIREBASE_CREDENTIALS_B64 }}" ]; then
+            echo "FIREBASE_CREDENTIALS_B64 no esta definido"
             exit 1
           fi
-          printf '%s' "${{ secrets.FIREBASE_CREDENTIALS_JSON }}" > "${{ github.workspace }}/firebase-credentials.json"
+          echo "${{ secrets.FIREBASE_CREDENTIALS_B64 }}" | base64 -d > "${{ github.workspace }}/firebase-credentials.json"
 
       - name: Desplegar a Firebase
         env:
