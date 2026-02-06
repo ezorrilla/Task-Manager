@@ -45,9 +45,13 @@ jobs:
 
       - name: Crear credenciales de Firebase
         run: |
-          echo '${{ secrets.FIREBASE_CREDENTIALS_JSON }}' > ${{ github.workspace }}/firebase-credentials.json
+          if [ -z "${{ secrets.FIREBASE_CREDENTIALS_JSON }}" ]; then
+            echo "FIREBASE_CREDENTIALS_JSON no esta definido"
+            exit 1
+          fi
+          printf '%s' "${{ secrets.FIREBASE_CREDENTIALS_JSON }}" > "${{ github.workspace }}/firebase-credentials.json"
 
       - name: Desplegar a Firebase
         env:
-          FIREBASE_CREDENTIALS_PATH: ${{ github.workspace }}/firebase-credentials.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/firebase-credentials.json
         run: firebase deploy
