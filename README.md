@@ -16,7 +16,7 @@ task-manager/
 ## Tecnologías
 
 ### Backend
-- Node.js 18+ con Express 4.x
+- Node.js 22+ con Express 4.x
 - TypeScript 5.x (strict mode)
 - Firebase Cloud Functions
 - Firebase Firestore
@@ -32,7 +32,7 @@ task-manager/
 
 ## Requisitos Previos
 
-- Node.js 18+
+- Node.js 22+
 - Angular CLI 19
 - Firebase CLI (`npm install -g firebase-tools`)
 - Cuenta de Firebase con proyecto configurado
@@ -111,16 +111,17 @@ firebase deploy
 - Se ejecuta solo cuando el workflow `CI` termina con éxito en `main`.
 - Despliega Firebase Hosting, Functions y reglas.
 
-#### Credenciales para CD (Service Account JSON)
-El workflow no usa credenciales en el repo. Cada persona debe crear su propio secret en GitHub.
+#### Credenciales para CD (FIREBASE_TOKEN)
+El workflow usa un token de Firebase guardado como secret en GitHub.
 
-1. Crea un Service Account en tu proyecto de Firebase/Google Cloud.
-2. Descarga el JSON y guárdalo como secret en tu repositorio:
-   - Nombre: `FIREBASE_CREDENTIALS_JSON`
-   - Valor: contenido completo del JSON
+1. Genera el token en tu máquina:
+   ```bash
+   firebase login:ci
+   ```
+2. Crea el secret en GitHub:
+   - Nombre: `FIREBASE_TOKEN`
+   - Valor: token generado
 3. Actualiza `.firebaserc` con tu `projectId`.
-
-El workflow crea el archivo de credenciales temporalmente y nunca se commitea.
 
 ## Endpoints del API
 
