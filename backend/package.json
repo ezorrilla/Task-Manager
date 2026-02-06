@@ -4,7 +4,7 @@
   "description": "API de gestion de tareas con Express, TypeScript y Firebase Cloud Functions",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/infraestructura/http/servidor.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/infrastructure/http/server.ts",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "start": "node dist/index.js",

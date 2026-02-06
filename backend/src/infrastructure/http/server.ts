@@ -24,7 +24,7 @@ export function createServer(): express.Application {
   return app;
 }
 
-if (process.env['NODE_ENV'] !== 'production') {
+if (require.main === module && process.env['NODE_ENV'] !== 'production') {
   const puerto = process.env['PORT'] || 3000;
   const app = createServer();
 
